@@ -24,33 +24,51 @@ import { MicrofrontendService } from './services/microfrontend.service';
       :host {
         display: grid;
 
+        grid-template-rows: 40px auto 40px;
+        grid-template-columns: 200px auto;
         grid-template-areas:
           'h h h'
           's m m'
           'f f f';
 
-        padding: 10px;
-        border: solid 1px black;
+        height: 100vh;
+        overflow: hidden;
       }
 
       .header {
         grid-area: h;
+
+        display: flex;
+        align-items: center;
+        padding: 10px;
+
         font-style: italic;
         font-weight: bold;
+        background: lightblue;
       }
 
       .sidebar {
         grid-area: s;
+        background: lightseagreen;
+        padding: 10px;
       }
 
       .main {
         grid-area: m;
+        background: gainsboro;
+        padding: 10px;
       }
 
       .footer {
         grid-area: f;
+
+        display: flex;
+        align-items: center;
+        padding: 10px;
+
         font-style: italic;
         font-weight: bold;
+        background: lightsteelblue;
       }
     `,
   ],

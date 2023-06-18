@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { BusEvent, EventBusService } from 'event-bus';
+import { EventBusService } from 'event-bus';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,7 +13,7 @@ export class DashboardComponent {
     this.eventBusService.events$
       .pipe(takeUntilDestroyed())
       .subscribe((event) => {
-        console.log('dashboard', event, event instanceof BusEvent);
+        console.log('dashboard', event);
       });
   }
 }

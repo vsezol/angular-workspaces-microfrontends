@@ -8,15 +8,12 @@ const EVENT_TYPE: string = 'BUS_EVENT';
   providedIn: 'platform',
 })
 export class EventBusService {
-  constructor() {
-    console.log(Math.random());
-  }
-
   readonly events$: Observable<BusEvent> = fromEvent<CustomEvent>(
     window,
     EVENT_TYPE
   ).pipe(
     map(({ detail }) => detail),
+    filter((event) => event instanceof BusEvent),
     share()
   );
 

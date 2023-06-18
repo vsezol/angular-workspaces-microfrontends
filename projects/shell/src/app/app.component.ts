@@ -90,12 +90,6 @@ export class AppComponent {
     private readonly microfrontendService: MicrofrontendService,
     private readonly eventBusService: EventBusService
   ) {
-    this.eventBusService.events$
-      .pipe(takeUntilDestroyed())
-      .subscribe((event) => {
-        console.log('shell', event);
-      });
-
     class CustomBusEvent extends BusEvent {
       public readonly name: string = 'Hello it is custom event name';
 
@@ -103,6 +97,13 @@ export class AppComponent {
         super(payload);
       }
     }
+
+    this.eventBusService
+      .listenFor(CustomBusEvent)
+      .pipe(takeUntilDestroyed())
+      .subscribe((event) => {
+        console.log('shell', event);
+      });
 
     interval(1000)
       .pipe(takeUntilDestroyed())

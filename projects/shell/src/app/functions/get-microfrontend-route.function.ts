@@ -1,6 +1,6 @@
+import { loadRemoteModule } from '@angular-architects/module-federation';
 import { Route } from '@angular/router';
 import { Microfrontend } from '../types/microfrontend.type';
-import { loadRemoteModule } from './load-remote-module.function';
 
 export function getRouteForMicrofrontend(mf: Microfrontend): Route {
   return {
@@ -8,6 +8,10 @@ export function getRouteForMicrofrontend(mf: Microfrontend): Route {
     pathMatch: mf.route?.pathMatch,
     canActivate: mf.route.canActivate,
     loadChildren: () =>
-      loadRemoteModule(mf.remote).then((m) => m[mf.moduleName]),
+      loadRemoteModule({
+        type: 'module',
+        remoteEntry: mf.remote.remoteEntry,
+        exposedModule: `${mf.remote.exposed}`,
+      }).then((m) => m[mf.moduleName]),
   };
 }

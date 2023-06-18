@@ -1,5 +1,9 @@
 import { Component, Type } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+
+import { BusEvent, EventBusService } from 'event-bus';
 import { SidebarComponent } from 'projects/sidebar/src/app/sidebar.component';
+import { interval } from 'rxjs';
 import { MicrofrontendService } from './services/microfrontend.service';
 
 @Component({
@@ -82,5 +86,30 @@ export class AppComponent {
       'SidebarComponent'
     );
 
-  constructor(private readonly microfrontendService: MicrofrontendService) {}
+  constructor(
+    private readonly microfrontendService: MicrofrontendService,
+    private readonly eventBusService: EventBusService
+  ) {
+    this.eventBusService.events$
+      .pipe(takeUntilDestroyed())
+      .subscribe((event) => {
+        console.log('shell', event);
+      });
+
+    class CustomBusEvent extends BusEvent {
+      public readonly name: string = 'Hello it is custom event name';
+
+      constructor(payload: string) {
+        super(payload);
+      }
+    }
+
+    interval(1000)
+      .pipe(takeUntilDestroyed())
+      .subscribe(() => {
+        this.eventBusService.dispatch(
+          new CustomBusEvent('Custom payload from SHELL')
+        );
+      });
+  }
 }

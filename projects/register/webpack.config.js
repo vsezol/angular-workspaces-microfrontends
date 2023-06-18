@@ -23,6 +23,7 @@ module.exports = {
         "@angular/core": { singleton: true, requiredVersion: "auto" },
         "@angular/common": { singleton: true, requiredVersion: "auto" },
         "@angular/router": { singleton: true, requiredVersion: "auto" },
+        rxjs: { singleton: true, requiredVersion: "auto" },
       },
     }),
   ],

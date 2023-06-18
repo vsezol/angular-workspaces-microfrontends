@@ -11,7 +11,7 @@ export function getRouteForMicrofrontend(mf: Microfrontend): Route {
       loadRemoteModule({
         type: 'module',
         remoteEntry: mf.remote.remoteEntry,
-        exposedModule: `${mf.remote.exposed}`,
+        exposedModule: mf.remote.exposed,
       }).then((m) => m[mf.moduleName]),
   };
 }

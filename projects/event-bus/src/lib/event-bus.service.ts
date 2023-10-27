@@ -4,6 +4,8 @@ import { BusEvent } from './bus-event.class';
 
 const EVENT_TYPE: string = 'BUS_EVENT';
 
+// todo strategy for sending events
+
 @Injectable({
   providedIn: 'platform',
 })

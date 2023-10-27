@@ -8,8 +8,6 @@ import { EventBusService } from 'event-bus';
 })
 export class DashboardComponent {
   constructor(private readonly eventBusService: EventBusService) {
-    console.log('dash board init');
-
     this.eventBusService.events$
       .pipe(takeUntilDestroyed())
       .subscribe((event) => {

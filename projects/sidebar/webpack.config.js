@@ -15,4 +15,5 @@ module.exports = withModuleFederationPlugin({
       requiredVersion: "auto",
     }),
   },
+  sharedMappings: ["event-bus"],
 });

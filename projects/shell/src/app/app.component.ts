@@ -1,9 +1,8 @@
 import { Component, Type } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
-import { BusEvent, EventBusService } from 'event-bus';
+import { EventBusService } from 'event-bus';
 import { SidebarComponent } from 'projects/sidebar/src/app/sidebar.component';
-import { interval } from 'rxjs';
 import { MicrofrontendService } from './services/microfrontend.service';
 
 @Component({
@@ -90,27 +89,10 @@ export class AppComponent {
     private readonly microfrontendService: MicrofrontendService,
     private readonly eventBusService: EventBusService
   ) {
-    class CustomBusEvent extends BusEvent {
-      public readonly name: string = 'Hello it is custom event name';
-
-      constructor(payload: string) {
-        super(payload);
-      }
-    }
-
-    this.eventBusService
-      .listenFor(CustomBusEvent)
+    this.eventBusService.events$
       .pipe(takeUntilDestroyed())
       .subscribe((event) => {
         console.log('shell', event);
-      });
-
-    interval(1000)
-      .pipe(takeUntilDestroyed())
-      .subscribe(() => {
-        this.eventBusService.dispatch(
-          new CustomBusEvent('Custom payload from SHELL')
-        );
       });
   }
 }
